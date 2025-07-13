@@ -11,6 +11,9 @@ package io.github.cachetools4k
  * @property maxSize The maximum number of entries the cache can hold before removing least recently used entries
  */
 class LruCache<K, V>(private val maxSize: Int): Cache<K, V> {
+    init {
+        require(maxSize > 0) { "maxSize must be positive" }
+    }
     
     private val map = object : LinkedHashMap<K, V>(16, 0.75f, true) {
         override fun removeEldestEntry(eldest: MutableMap.MutableEntry<K, V>?): Boolean {
